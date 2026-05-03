@@ -908,36 +908,36 @@
           <div class="nutri-val" id="nutFat">—</div>
           <div class="nutri-unit">gram</div>
           <div class="nutri-label">Lemak</div>
-        </div>
-      </div>
-      <div class="nutri-bar-wrap" id="nutBars"></div>
-      <div style="font-size:10px;color:var(--text-dim);margin-top:10px;line-height:1.5;">
-        * Estimasi berdasarkan bahan pilihan. Ukuran <span id="nutSizeLabel">—</span> = porsi protein & base ~<span id="nutWeightLabel">—</span>g + sayuran.
-      </div>
+        <!-- Nutrition Info -->
+<div class="nutrition-card" id="nutritionCard">
+  <div class="nutrition-title">🥗 Nutrition Estimate</div>
+  <div class="nutrition-grid">
+    <div class="nutri-box">
+      <div class="nutri-val" id="nutCal">—</div>
+      <div class="nutri-unit">kcal</div>
+      <div class="nutri-label">Calories</div>
     </div>
-
-    <div class="next-btn-wrap btn-order">
-      <button class="btn-next" onclick="placeOrder()">Place Order 🍱</button>
+    <div class="nutri-box">
+      <div class="nutri-val" id="nutCarbs">—</div>
+      <div class="nutri-unit">grams</div>
+      <div class="nutri-label">Carbs</div>
+    </div>
+    <div class="nutri-box">
+      <div class="nutri-val" id="nutPro">—</div>
+      <div class="nutri-unit">grams</div>
+      <div class="nutri-label">Protein</div>
+    </div>
+    <div class="nutri-box">
+      <div class="nutri-val" id="nutFat">—</div>
+      <div class="nutri-unit">grams</div>
+      <div class="nutri-label">Fat</div>
     </div>
   </div>
-
-  <!-- ═══ ORDER CONFIRM ════════════════════════ -->
-  <div class="screen" id="confirm">
-    <div class="confirm-icon">🎉</div>
-    <div class="confirm-title">Order Placed!</div>
-    <div class="order-num" id="orderNum">#YB-0001</div>
-    <p class="confirm-sub">Your bento is being packed with love.<br>Estimated ready in 20–25 minutes.</p>
-    <button class="btn-primary" style="max-width:100%;margin-top:12px" onclick="goTo('home')">Back to Home</button>
+  <div class="nutri-bar-wrap" id="nutBars"></div>
+  <div style="font-size:10px;color:var(--text-dim);margin-top:10px;line-height:1.5;">
+    * Estimated based on selected ingredients. <span id="nutSizeLabel">—</span> size = protein portion & base ~<span id="nutWeightLabel">—</span>g + vegetables.
   </div>
-
-  <!-- ═══ HISTORY ════════════════════════════════ -->
-  <div class="screen" id="history">
-    <div class="top-bar">
-      <div class="top-bar-logo">Order History</div>
-    </div>
-    <div class="history-list" id="historyList">
-      <p style="color:var(--text-muted);font-size:14px;padding:20px 0;text-align:center;">No orders yet. Start building!</p>
-    </div>
+</div>
   </div>
 
   <!-- ═══ PROFILE ════════════════════════════════ -->
