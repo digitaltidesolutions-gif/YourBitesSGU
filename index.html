@@ -823,7 +823,7 @@
 
     <!-- Step 3 -->
     <div id="bStep3" style="display:none;overflow-y:auto;flex:1">
-      <div class="step-label">STEP 04</div>
+      <div class="step-label">STEP 03</div>
       <div class="step-title">Add Your Sides</div>
       <p style="padding:0 24px 16px;color:var(--text-muted);font-size:13px;">Select up to 2 sides</p>
       <div class="food-grid">
@@ -887,59 +887,63 @@
     </div>
     <!-- Nutrition Info -->
     <div class="nutrition-card" id="nutritionCard">
-      <div class="nutrition-title">🥗 Nutrition Estimate</div>
-      <div class="nutrition-grid">
-        <div class="nutri-box">
-          <div class="nutri-val" id="nutCal">—</div>
-          <div class="nutri-unit">kcal</div>
-          <div class="nutri-label">Calories</div>
-        </div>
-        <div class="nutri-box">
-          <div class="nutri-val" id="nutCarbs">—</div>
-          <div class="nutri-unit">gram</div>
-          <div class="nutri-label">Karbo</div>
-        </div>
-        <div class="nutri-box">
-          <div class="nutri-val" id="nutPro">—</div>
-          <div class="nutri-unit">gram</div>
-          <div class="nutri-label">Protein</div>
-        </div>
-        <div class="nutri-box">
-          <div class="nutri-val" id="nutFat">—</div>
-          <div class="nutri-unit">gram</div>
-          <div class="nutri-label">Lemak</div>
-       </div>
-      </div>
-        <!-- Nutrition Info -->
-<div class="nutrition-card" id="nutritionCard">
   <div class="nutrition-title">🥗 Nutrition Estimate</div>
+
   <div class="nutrition-grid">
     <div class="nutri-box">
       <div class="nutri-val" id="nutCal">—</div>
       <div class="nutri-unit">kcal</div>
       <div class="nutri-label">Calories</div>
     </div>
+
     <div class="nutri-box">
       <div class="nutri-val" id="nutCarbs">—</div>
       <div class="nutri-unit">grams</div>
       <div class="nutri-label">Carbs</div>
     </div>
+
     <div class="nutri-box">
       <div class="nutri-val" id="nutPro">—</div>
       <div class="nutri-unit">grams</div>
       <div class="nutri-label">Protein</div>
     </div>
+
     <div class="nutri-box">
       <div class="nutri-val" id="nutFat">—</div>
       <div class="nutri-unit">grams</div>
       <div class="nutri-label">Fat</div>
     </div>
   </div>
+
   <div class="nutri-bar-wrap" id="nutBars"></div>
+
   <div style="font-size:10px;color:var(--text-dim);margin-top:10px;line-height:1.5;">
-    * Estimated based on selected ingredients. <span id="nutSizeLabel">—</span> size = protein portion & base ~<span id="nutWeightLabel">—</span>g + vegetables.
+    * Estimated based on selected ingredients. Size <span id="nutSizeLabel">—</span> = protein portion & base ~<span id="nutWeightLabel">—</span>g + vegetables.
   </div>
 </div>
+
+    <div class="next-btn-wrap btn-order">
+      <button class="btn-next" onclick="placeOrder()">Place Order 🍱</button>
+    </div>
+  </div>
+
+  <!-- ═══ ORDER CONFIRM ════════════════════════ -->
+  <div class="screen" id="confirm">
+    <div class="confirm-icon">🎉</div>
+    <div class="confirm-title">Order Placed!</div>
+    <div class="order-num" id="orderNum">#YB-0001</div>
+    <p class="confirm-sub">Your bento is being packed with love.<br>Estimated ready in 20–25 minutes.</p>
+    <button class="btn-primary" style="max-width:100%;margin-top:12px" onclick="goTo('home')">Back to Home</button>
+  </div>
+
+  <!-- ═══ HISTORY ════════════════════════════════ -->
+  <div class="screen" id="history">
+    <div class="top-bar">
+      <div class="top-bar-logo">Order History</div>
+    </div>
+    <div class="history-list" id="historyList">
+      <p style="color:var(--text-muted);font-size:14px;padding:20px 0;text-align:center;">No orders yet. Start building!</p>
+    </div>
   </div>
 
   <!-- ═══ PROFILE ════════════════════════════════ -->
@@ -1170,6 +1174,7 @@ function nextSlide(n) {
 function goToBuilder() {
   goTo('builder');
   showNav(false);
+  document.getElementById('builder').scrollTop = 0;
   gotoBuilderStep(1);
 }
 
@@ -1226,6 +1231,7 @@ const priceImages = {
 };
 
 function goToSummary() {
+  goTo('summary');
   document.getElementById('sumSize').textContent = state.size;
   document.getElementById('sumBase').textContent = state.base || '—';
   document.getElementById('sumPro').textContent = state.protein || '—';
@@ -1245,30 +1251,36 @@ function goToSummary() {
   document.getElementById('nutWeightLabel').textContent = sizeWeights[state.size];
 
   // Macro bars (% of total macros by weight)
-  const total = n.carbs + n.protein + n.fat || 1;
-  const carbPct  = Math.round(n.carbs   / total * 100);
-  const proPct   = Math.round(n.protein / total * 100);
-  const fatPct   = Math.round(n.fat     / total * 100);
-  document.getElementById('nutBars').innerHTML = `
-    <div class="nutri-bar-row">
-      <span class="nutri-bar-label">Karbo</span>
-      <div class="nutri-bar-track"><div class="nutri-bar-fill bar-carbs" style="width:${carbPct}%"></div></div>
-      <span class="nutri-bar-pct">${carbPct}%</span>
-    </div>
-    <div class="nutri-bar-row">
-      <span class="nutri-bar-label">Protein</span>
-      <div class="nutri-bar-track"><div class="nutri-bar-fill bar-protein" style="width:${proPct}%"></div></div>
-      <span class="nutri-bar-pct">${proPct}%</span>
-    </div>
-    <div class="nutri-bar-row">
-      <span class="nutri-bar-label">Lemak</span>
-      <div class="nutri-bar-track"><div class="nutri-bar-fill bar-fat" style="width:${fatPct}%"></div></div>
-      <span class="nutri-bar-pct">${fatPct}%</span>
-    </div>
-  `;
+const total = n.carbs + n.protein + n.fat || 1;
+const carbPct  = Math.round(n.carbs   / total * 100);
+const proPct   = Math.round(n.protein / total * 100);
+const fatPct   = Math.round(n.fat     / total * 100);
 
-  goTo('summary');
-}
+document.getElementById('nutBars').innerHTML = `
+  <div class="nutri-bar-row">
+    <span class="nutri-bar-label">Carbs</span>
+    <div class="nutri-bar-track">
+      <div class="nutri-bar-fill bar-carbs" style="width:${carbPct}%"></div>
+    </div>
+    <span class="nutri-bar-pct">${carbPct}%</span>
+  </div>
+
+  <div class="nutri-bar-row">
+    <span class="nutri-bar-label">Protein</span>
+    <div class="nutri-bar-track">
+      <div class="nutri-bar-fill bar-protein" style="width:${proPct}%"></div>
+    </div>
+    <span class="nutri-bar-pct">${proPct}%</span>
+  </div>
+
+  <div class="nutri-bar-row">
+    <span class="nutri-bar-label">Fat</span>
+    <div class="nutri-bar-track">
+      <div class="nutri-bar-fill bar-fat" style="width:${fatPct}%"></div>
+    </div>
+    <span class="nutri-bar-pct">${fatPct}%</span>
+  </div>
+`;}
 
 function placeOrder() {
   const order = {
@@ -1285,8 +1297,13 @@ function placeOrder() {
   updateHistory();
   goTo('confirm');
   showNav(false);
-  // reset
+  // reset state
   state.base = null; state.protein = null; state.sides = [];
+  // reset visual selections
+  document.querySelectorAll('.food-card.selected, .size-btn.selected').forEach(el => el.classList.remove('selected'));
+  document.getElementById('btnBase').disabled = true;
+  document.getElementById('btnPro').disabled = true;
+  pickSize('Small');
 }
 
 function updateHistory() {
